@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/home/natesh/newworkspace_studio/Android%20GCM%20Chat%20App/app/appcompat/res/values-sw600dp/dimens.xml -->
+    <!-- From: file:/home/natesh/newworkspace_studio/Chat_Step/Android%20GCM%20Chat%20App/app/appcompat/res/values-sw600dp/dimens.xml -->
     <eat-comment/>
     <dimen name="abc_action_bar_default_height_material">64dp</dimen>
     <dimen name="abc_action_bar_default_padding_material">4dp</dimen>
-    <!-- From: file:/home/natesh/newworkspace_studio/Android%20GCM%20Chat%20App/app/appcompat/res/values-sw600dp/config.xml -->
+    <!-- From: file:/home/natesh/newworkspace_studio/Chat_Step/Android%20GCM%20Chat%20App/app/appcompat/res/values-sw600dp/config.xml -->
     <eat-comment/>
     <dimen name="abc_config_prefDialogWidth">580dp</dimen>
-    <!-- From: file:/home/natesh/newworkspace_studio/Android%20GCM%20Chat%20App/app/appcompat/res/values-sw600dp/dimens.xml -->
+    <!-- From: file:/home/natesh/newworkspace_studio/Chat_Step/Android%20GCM%20Chat%20App/app/appcompat/res/values-sw600dp/dimens.xml -->
     <eat-comment/>
     <dimen name="abc_text_size_subtitle_material_toolbar">16dp</dimen>
     <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>

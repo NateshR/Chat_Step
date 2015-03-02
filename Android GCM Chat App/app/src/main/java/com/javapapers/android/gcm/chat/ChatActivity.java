@@ -35,7 +35,10 @@ public class ChatActivity extends Activity {
     private String toUserName;
     MessageSender messageSender;
 
-	@Override
+    ChatSQL chatSQL;
+    boolean oneTime = true;
+
+    @Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         Intent i = getIntent();
@@ -52,7 +55,25 @@ public class ChatActivity extends Activity {
         gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
 
 		chatArrayAdapter = new ChatArrayAdapter(getApplicationContext(), R.layout.activity_chat_singlemessage);
-		listView.setAdapter(chatArrayAdapter);
+
+        if(oneTime) {
+            chatSQL = new ChatSQL(ChatActivity.this,"chatDatabase",i.getStringExtra("DATABASE_TABLE"),1);
+            chatSQL.CreateTable();
+            oneTime=false;
+        }
+
+        //Get Values
+        String[] chat_text = chatSQL.getChatText();
+        String[] chat_gravity_string = chatSQL.getChatGravity();
+
+        for(int j=0;j<chat_text.length;j++)
+        {
+            boolean chat_gravity_boolean = Boolean.valueOf(chat_gravity_string[j]);
+            chatArrayAdapter.add(new ChatMessage(chat_gravity_boolean,chat_text[j]));
+            Log.d("Chat_text",chat_text[0]);
+
+        }
+        listView.setAdapter(chatArrayAdapter);
 
         chatText = (EditText) findViewById(R.id.chatText);
         chatText.setOnKeyListener(new OnKeyListener() {
@@ -82,6 +103,14 @@ public class ChatActivity extends Activity {
         });
 	}
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent1 = new Intent(ChatActivity.this,UserListActivity.class);
+        startActivity(intent1);
+        finish();
+    }
+
     private boolean sendChatMessage(){
         //sending gcm message to the paired device
         Bundle dataBundle = new Bundle();
@@ -90,8 +119,15 @@ public class ChatActivity extends Activity {
         dataBundle.putString("CHATMESSAGE", chatText.getText().toString());
         messageSender.sendMessage(dataBundle,gcm);
 
+        //Enter into database
+        chatSQL.CreateEntry(chatText.getText().toString(),"false");
+        onCreate(new Bundle());
+
+
+
+
         //updating the current device
-        chatArrayAdapter.add(new ChatMessage(false, chatText.getText().toString()));
+        //chatArrayAdapter.add(new ChatMessage(false, chatText.getText().toString()));
         chatText.setText("");
         return true;
     }
@@ -101,7 +137,10 @@ public class ChatActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "onReceive: " + intent.getStringExtra("CHATMESSAGE"));
-            chatArrayAdapter.add(new ChatMessage(true, intent.getStringExtra("CHATMESSAGE")));
+            //Enter into database
+            chatSQL.CreateEntry(intent.getStringExtra("CHATMESSAGE"),"true");
+            onCreate(new Bundle());
         }
     };
+
 }

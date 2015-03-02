@@ -51,10 +51,9 @@ public class SignUpActivity extends ActionBarActivity {
         buttonSignUp = (Button) findViewById(R.id.ButtonSignUp);
         messageSender = new MessageSender();
         //step 1: register with Google GCM server
-        if (TextUtils.isEmpty(regId)) {
-            regId = registerGCM();
-            Log.d(TAG, "GCM RegId: " + regId);
-        }
+        regId = registerGCM();
+
+
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -89,6 +88,13 @@ public class SignUpActivity extends ActionBarActivity {
             }
 
         });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        regId = registerGCM();
 
     }
 
@@ -142,6 +148,18 @@ public class SignUpActivity extends ActionBarActivity {
             throw new RuntimeException(e);
         }
     }
+
+    private void storeRegistrationId(String regId) {
+        final SharedPreferences prefs = getSharedPreferences(
+                SignUpActivity.class.getSimpleName(), Context.MODE_PRIVATE);
+        int appVersion = getAppVersion();
+        Log.i(TAG, "Saving regId on app version " + appVersion);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(REG_ID, regId);
+        editor.putInt(APP_VERSION, appVersion);
+        editor.commit();
+    }
+
 
     private class registerInBackground extends AsyncTask<Void, Void, String> {
         @Override
@@ -226,19 +244,6 @@ public class SignUpActivity extends ActionBarActivity {
                     Toast.LENGTH_LONG).show();
         }
     }
-
-
-    private void storeRegistrationId(String regId) {
-        final SharedPreferences prefs = getSharedPreferences(
-                SignUpActivity.class.getSimpleName(), Context.MODE_PRIVATE);
-        int appVersion = getAppVersion();
-        Log.i(TAG, "Saving regId on app version " + appVersion);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(REG_ID, regId);
-        editor.putInt(APP_VERSION, appVersion);
-        editor.commit();
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

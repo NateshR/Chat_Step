@@ -33,9 +33,9 @@ public class UserListActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
-        content = (TextView)findViewById(R.id.output);
+        content = (TextView) findViewById(R.id.output);
         content.setText("Select user to chat:");
-        refreshButton = (Button)findViewById(R.id.refreshButton);
+        refreshButton = (Button) findViewById(R.id.refreshButton);
         intent = new Intent(this, GCMNotificationIntentService.class);
         registerReceiver(broadcastReceiver, new IntentFilter("com.javapapers.android.gcm.chat.userlist"));
         messageSender = new MessageSender();
@@ -65,12 +65,12 @@ public class UserListActivity extends ListActivity {
 
         String[] userListArr = userList.split(":");
 
-        Log.d(TAG,"userListArr: "+userListArr.length+" tostr "+userListArr.toString());
+        Log.d(TAG, "userListArr: " + userListArr.length + " tostr " + userListArr.toString());
 
         //remove empty strings :-)
         List<String> list = new ArrayList<String>();
-        for(String s : userListArr) {
-            if(s != null && s.length() > 0) {
+        for (String s : userListArr) {
+            if (s != null && s.length() > 0) {
                 list.add(s);
             }
         }
@@ -88,24 +88,25 @@ public class UserListActivity extends ListActivity {
         super.onListItemClick(l, v, position, id);
 
         // ListView Clicked item index
-        int itemPosition     = position;
+        int itemPosition = position;
 
         // ListView Clicked item value
-        String  itemValue    = (String) l.getItemAtPosition(position);
+        String itemValue = (String) l.getItemAtPosition(position);
 
-        content.setText("User selected: " +itemValue);
+        content.setText("User selected: " + itemValue);
 
 
         Intent i = new Intent(getApplicationContext(),
                 ChatActivity.class);
-        i.putExtra("TOUSER",itemValue);
+        i.putExtra("TOUSER", itemValue);
+        i.putExtra("DATABASE_TABLE", itemValue + "_table");
         startActivity(i);
         finish();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.user_list, menu);
         return true;

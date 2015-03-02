@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/home/natesh/newworkspace_studio/Android%20GCM%20Chat%20App/app/appcompat/res/values-v17/styles_rtl.xml -->
+    <!-- From: file:/home/natesh/newworkspace_studio/Chat_Step/Android%20GCM%20Chat%20App/app/appcompat/res/values-v17/styles_rtl.xml -->
     <eat-comment/>
     <style name="RtlOverlay.Widget.AppCompat.ActionBar.TitleItem" parent="android:Widget">
         <item name="android:layout_gravity">center_vertical|start</item>

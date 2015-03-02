@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/home/natesh/newworkspace_studio/Android GCM Chat App/app/appcompat/assets"/></dataSet><dataSet config="debug"><source path="/home/natesh/newworkspace_studio/Android GCM Chat App/app/appcompat/build-types/debug/assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/home/natesh/newworkspace_studio/Chat_Step/Android GCM Chat App/app/appcompat/assets"/></dataSet><dataSet config="debug"><source path="/home/natesh/newworkspace_studio/Chat_Step/Android GCM Chat App/app/appcompat/build-types/debug/assets"/></dataSet></merger>
